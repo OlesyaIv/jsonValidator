@@ -1,3 +1,8 @@
+/*
+JSON Validator
+@author Olesya Ivashekvich
+*/
+
 import com.google.gson.*;
 import com.sun.net.httpserver.HttpServer;
 import org.jetbrains.annotations.NotNull;
@@ -13,6 +18,10 @@ Create server and check json file
 */
 
 public class JsonValidator {
+	  /**
+         * @param server is newly created server in 'main' function, we use this param to bind server and create context
+         * @throws IOException this exception can happen when something wrong with input/output operations
+         */
     public JsonValidator(HttpServer server) throws IOException {
 	    
 	    Gson builder = new GsonBuilder().setPrettyPrinting().create();
@@ -72,7 +81,10 @@ public class JsonValidator {
 	    });
     }
 	
-    /*Starting server and waiting for a Json files*/	
+    /*Starting server and waiting for a Json files*/
+	/**
+         * @throws IOException this exception can happen when something wrong
+         */
     public static void main(String[] args) throws IOException {
                 final HttpServer server = HttpServer.create();
                 JsonValidator json = new JsonValidator(server);
@@ -81,8 +93,13 @@ public class JsonValidator {
 	
 
 	/*Function for start and stop server*/
-	
+	 /**
+         * @param server we start server
+         */
         private static void start(HttpServer server){server.start();}
+	/**
+         * @param server we stop server
+         */
         private static void stop(HttpServer server){server.stop(0);}
 	
 	/*End function for start and stop server*/
