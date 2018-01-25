@@ -14,11 +14,13 @@ import java.util.stream.Collectors;
 //import java.io.BufferedReader;
 
 /*
-Create server and check json file
+Class JsonValidator
 */
 
 public class JsonValidator {
-	  /**
+	/**
+	 * Create server and check json file
+	 * 
          * @param server is newly created server in 'main' function, we use this param to bind server and create context
          * @throws IOException this exception can happen when something wrong with input/output operations
          */
@@ -30,17 +32,23 @@ public class JsonValidator {
 	    server.createContext("/", http -> {
 		    /* server start */
 		    
-		    /*Read text from stream*/
+		    /*
+		    * Read text from stream
+		    */
 		    InputStreamReader isr = new InputStreamReader(http.getRequestBody());
 		    final String jsonRequest = new BufferedReader(isr).lines().collect(Collectors.joining());
 		    System.out.println("request:" + jsonRequest);
 		    
-		    /*String for result*/
+		    /*
+		    * String for result
+		    */
 		    
 		    String jsonResponse;
 		    String respStr = null;
 		    
-		    /*Now try convert to string and see errors*/
+		    /*
+		    * Now try convert to string and see errors
+		    */
 		    try {
 		
 			    Object object = builder.fromJson(jsonRequest, Object.class);
@@ -49,12 +57,16 @@ public class JsonValidator {
 
 		    catch (JsonSyntaxException ex) {
 			    
-		    /*Now create erorr-message*/
+		    /*
+		    * Now create erorr-message
+		    */
 			    JsonObject jsonError = new JsonObject();
 			    jsonError.addProperty("message", ex.getMessage());
 			    jsonResponse = builder.toJson(jsonError);
 			    
-		    /*Now create response*/
+		    /*
+		    * Now create response
+		    */
 			    String exception = ex.toString();
 			    String[] er = exception.split(" at ");
 			    String errorMessage = er[0]; 
@@ -70,19 +82,24 @@ public class JsonValidator {
 				    "}";
 		    }
 		    
-		    /*And now we can see our result*/
+		    /*
+		    * And now we can see our result
+		    */
 		    System.out.println("response:" + respStr);
 		    http.sendResponseHeaders(200, respStr.length());
 		    http.getResponseBody().write(respStr.getBytes());
 		    
-		    /*close server*/
+		    /*
+		    * close server
+		    */
 		    http.close();
 		    
 	    });
     }
 	
-    /*Starting server and waiting for a Json files*/
 	/**
+	 *Starting server and waiting for a Json files
+	 *
          * @throws IOException this exception can happen when something wrong
          */
     public static void main(String[] args) throws IOException {
@@ -93,11 +110,15 @@ public class JsonValidator {
 	
 
 	/*Function for start and stop server*/
-	 /**
+	/**
+	 * Method binds server to HTTP port and starts listening
+	 *
          * @param server we start server
          */
         private static void start(HttpServer server){server.start();}
 	/**
+	 * Method stop server and stop listening
+	 *
          * @param server we stop server
          */
         private static void stop(HttpServer server){server.stop(0);}
