@@ -11,5 +11,5 @@ docker build -t task https://github.com/OlesyaIv/jsonValidator.git && docker run
 
 Send file for validation:
 ```
-curl -s --data-binary @filename.json http://localhost
+curl -s --upload-file filename.json http://localhost
 ```
