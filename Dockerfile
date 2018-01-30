@@ -8,5 +8,5 @@ ADD pom.xml /jsonValidator/pom.xml
 WORKDIR /jsonValidator
 RUN mvn clean install -e
 CMD ["java","-jar","target/task-0.1-jar-with-dependencies.jar"]
-#  sudo docker build -t test .
-#  sudo docker run -d --rm -p 80:80  test
+#  sudo docker build -t task .
+#  sudo docker run -d --rm -p 80:80  task
