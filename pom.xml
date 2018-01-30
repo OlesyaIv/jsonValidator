@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>TRPO</groupId>
-    <artifactId>task</artifactId>
+    <artifactId>validator</artifactId>
     <version>0.1</version>
     <packaging>jar</packaging>
 
@@ -39,7 +39,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>JsonValidator</mainClass>
+                                    <mainClass>main.java.jsonValidator</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>
