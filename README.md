@@ -6,7 +6,7 @@ The JSON Validation Service (JVS) is a validator that allows users to check JSON
 
 Run container built:
 ```
-docker build -t task https://github.com/OlesyaIv/jsonValidator.git && docker run -d --rm -p 80:80 task
+docker build -t task github.com/OlesyaIv/jsonValidator && docker run -d --rm -p 80:80 task
 ```
 
 Send file for validation:
