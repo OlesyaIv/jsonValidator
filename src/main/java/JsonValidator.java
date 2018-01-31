@@ -2,10 +2,10 @@
 JSON Validator
 @author Olesya Ivashekvich
 */
-
+package main.java;
 import com.google.gson.*;
 import com.sun.net.httpserver.HttpServer;
-import org.jetbrains.annotations.NotNull;
+//import org.jetbrains.annotations.NotNull;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.util.stream.Collectors;
@@ -24,6 +24,7 @@ public class JsonValidator {
          * @param server is newly created server in 'main' function, we use this param to bind server and create context
          * @throws IOException this exception can happen when something wrong with input/output operations
          */
+	int cnt = 0;
     public JsonValidator(HttpServer server) throws IOException {
 	    
 	    Gson builder = new GsonBuilder().setPrettyPrinting().create();
@@ -38,11 +39,11 @@ public class JsonValidator {
 		    InputStreamReader isr = new InputStreamReader(http.getRequestBody());
 		    final String jsonRequest = new BufferedReader(isr).lines().collect(Collectors.joining());
 		    System.out.println("request:" + jsonRequest);
-		    
+		    String filename = http.getRequestURI().getPath();
 		    /*
 		    * String for result
 		    */
-		    
+		    cnt = cnt + 1; 
 		    String jsonResponse;
 		    String respStr = null;
 		    
@@ -52,7 +53,7 @@ public class JsonValidator {
 		    try {
 		
 			    Object object = builder.fromJson(jsonRequest, Object.class);
-			    jsonResponse = builder.toJson(object);   
+			    respStr = builder.toJson(object);   // jsonResponse
 		    } 
 
 		    catch (JsonSyntaxException ex) {
@@ -71,14 +72,14 @@ public class JsonValidator {
 			    String[] er = exception.split(" at ");
 			    String errorMessage = er[0]; 
 			    String errorPlace = er[1]; 
-			    String id = Integer.toString(ex.hashCode());
-			    
+			  //  String id = Integer.toString(ex.hashCode());
+			 
 			    respStr = "{\n" +
 				    " \"errorCode\"  : 12345,\n" +
 				    " \"errorMessage\" : \"" + errorMessage + "\",\n" +
 				    " \"errorPlace\" : \"" + errorPlace + "\",\n" +
-				    " \"resource\"   : \"" + jsonRequest + "\",\n" +
-				    " \"request-id\" : \"" + id + "\",\n" +
+				    " \"resource\"   : \"" + filename + "\",\n" +
+				    " \"request-id\" : \"" + cnt + "\",\n" +
 				    "}";
 		    }
 		    
