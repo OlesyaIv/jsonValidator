@@ -39,7 +39,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>main.java.jsonValidator</mainClass>
+                                    <mainClass>main.java.JsonValidator</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>
