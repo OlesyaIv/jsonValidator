@@ -38,7 +38,7 @@ public class JsonValidator {
 		    InputStreamReader isr = new InputStreamReader(http.getRequestBody());
 		    final String jsonRequest = new BufferedReader(isr).lines().collect(Collectors.joining());
 		    System.out.println("request:" + jsonRequest);
-		    
+		    String filename = http.getRequestURI().getPath();
 		    /*
 		    * String for result
 		    */
@@ -72,12 +72,12 @@ public class JsonValidator {
 			    String errorMessage = er[0]; 
 			    String errorPlace = er[1]; 
 			    String id = Integer.toString(ex.hashCode());
-			    
+			 
 			    respStr = "{\n" +
 				    " \"errorCode\"  : 12345,\n" +
 				    " \"errorMessage\" : \"" + errorMessage + "\",\n" +
 				    " \"errorPlace\" : \"" + errorPlace + "\",\n" +
-				    " \"resource\"   : \"" + jsonRequest + "\",\n" +
+				    " \"resource\"   : \"" + filename + "\",\n" +
 				    " \"request-id\" : \"" + id + "\",\n" +
 				    "}";
 		    }
