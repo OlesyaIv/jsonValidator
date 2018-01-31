@@ -24,6 +24,7 @@ public class JsonValidator {
          * @param server is newly created server in 'main' function, we use this param to bind server and create context
          * @throws IOException this exception can happen when something wrong with input/output operations
          */
+	int cnt = 0;
     public JsonValidator(HttpServer server) throws IOException {
 	    
 	    Gson builder = new GsonBuilder().setPrettyPrinting().create();
@@ -42,7 +43,7 @@ public class JsonValidator {
 		    /*
 		    * String for result
 		    */
-		    
+		    cnt = cnt + 1; 
 		    String jsonResponse;
 		    String respStr = null;
 		    
