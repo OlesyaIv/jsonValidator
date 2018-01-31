@@ -53,7 +53,7 @@ public class JsonValidator {
 		    try {
 		
 			    Object object = builder.fromJson(jsonRequest, Object.class);
-			    jsonResponse = builder.toJson(object);   
+			    respStr = builder.toJson(object);   // jsonResponse
 		    } 
 
 		    catch (JsonSyntaxException ex) {
