@@ -1,7 +1,7 @@
 FROM openjdk:alpine
 
 EXPOSE 80
-RUN apk add --no-cache maven	+CMD ["java", "-jar", "/build/libs/task-all-0.1.jar"]
+RUN apk add --no-cache maven
 ADD src /jsonValidator/src	
 ADD pom.xml /jsonValidator/pom.xml	
 WORKDIR /jsonValidator	
