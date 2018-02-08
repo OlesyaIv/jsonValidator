@@ -2,7 +2,7 @@
 JSON Validator
 @author Olesya Ivashekvich
 */
-package main.java;
+
 import com.google.gson.*;
 import com.sun.net.httpserver.HttpServer;
 //import org.jetbrains.annotations.NotNull;

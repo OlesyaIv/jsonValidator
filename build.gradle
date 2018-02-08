@@ -1,11 +1,10 @@
 apply plugin: 'java'
-apply plugin: 'maven'
 apply plugin: 'application'
 apply plugin: 'com.bmuschko.docker-remote-api'
+
 import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
-version = '0.1'
 mainClassName = 'JsonValidator'
 
 buildscript {
@@ -17,24 +16,15 @@ buildscript {
     }
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
-
-task fatJar(type: Jar) {
-    manifest {
+task crJar(type: Jar) {
+	manifest {
         attributes (
-	'Main-Class': 'mainClassName'
-	)
+        	'Main-Class': 'JsonValidator'
+        )
     }
-    baseName = project.name + '-all'
+    baseName 'jsonvalidator'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = "3.1" 
 }
 
 task createDockerfile(type: Dockerfile) {
@@ -42,24 +32,22 @@ task createDockerfile(type: Dockerfile) {
     from 'openjdk:alpine'
     exposePort 80
     addFile ('.', '/')
-    defaultCommand ('java', '-jar', '/build/libs/task-all-0.1.jar')
+    defaultCommand ('java', '-jar', '/build/libs/jsonvalidator.jar')
 }
 
 task builtTask(type: DockerBuildImage) {
-    dependsOn fatJar
+    dependsOn crJar
     dependsOn createDockerfile
     inputDir = createDockerfile.destFile.parentFile
-    tag = 'task-all-0.1'
+    tag = 'jsonvalidator'
 }
 
 repositories {
+
     mavenCentral()
-    jcenter()
 }
 
-
-
-dependencies {
-    compile group: 'com.sun.net.httpserver', name: 'http', version: '20070405'
-    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.1'
+dependencies { 
+compile group: 'net.sf.oval', name: 'oval', version: '1.84'  
+compile group: 'com.google.code.gson', name: 'gson', version: '2.8.2' 
 }
