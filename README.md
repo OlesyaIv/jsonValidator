@@ -20,7 +20,6 @@ curl -s --upload-file filename.json http://localhost
 
 Run built:
 ```
-chmod +x gradlew
 ./gradlew builtTask && docker run -d -p 80:80 jsonvalidator
 ```
 
